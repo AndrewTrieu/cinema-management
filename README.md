@@ -14,6 +14,51 @@ The `Showtime` class represents a showtime for a movie in a movie theater. It ha
 
 The `Venue` class is a simple class that represents a venue such as a theater, stadium, or arena. It has name and location attributes and corresponding get and set methods. It is intended to be used as a base class that other classes such as `Theater` can extend to inherit its attributes and methods.
 
+## Demonstration
+
+```
+Welcome to the LUT Kino at Yliopistonkatu!
+1. Add a movie
+2. Remove a movie
+3. View a movie
+4. View all movies
+5. Add a showtime
+6. Remove a showtime
+7. View a showtime
+8. View all showtimes
+9. Buy a ticket
+10. View seating
+0. Exit
+Enter your choice: 1
+Enter the movie title: Avatar
+Enter the director: James Cameron
+Enter the duration: 162
+Movie added successfully!
+
+Welcome to the LUT Kino at Yliopistonkatu!
+1. Add a movie
+2. Remove a movie
+3. View a movie
+4. View all movies
+5. Add a showtime
+6. Remove a showtime
+7. View a showtime
+8. View all showtimes
+9. Buy a ticket
+10. View seating
+0. Exit
+Enter your choice: 4
+
+Title: Avatar
+Director: James Cameron
+Release Year: 2009-12-15
+Review: In the 22nd century, a paraplegic Marine is dispatched to the moon Pandora on a unique mission, but becomes torn between following orders and protecting an alien civilization.
+Genre: [Action, Adventure, Fantasy, Science Fiction]
+Duration: 162
+Rating: 7.5
+Number of Ratings: 26995
+```
+
 ## Object-Oriented Programming Principles
 The project uses the four principles of object-oriented programming (OOP):
 

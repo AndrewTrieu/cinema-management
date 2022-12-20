@@ -15,7 +15,7 @@ import org.json.JSONObject;
 // Main class
 public class Main {
     // attributes
-    private static final String API_KEY = "1958c3873a1d102fde2cab155cda98bc";
+    private static final String API_KEY = "YOUR_API_KEY";
     private static Theater theater;
     static Scanner scanner = new Scanner(System.in);
 
@@ -26,7 +26,7 @@ public class Main {
         // create a menu for customers of the theater
 
         while (true) {
-            System.out.println("\nWelcome to the " + theater.getName() + "at" + theater.getLocation() + "!");
+            System.out.println("\nWelcome to the " + theater.getName() + " at " + theater.getLocation() + "!");
             System.out.println("1. Add a movie");
             System.out.println("2. Remove a movie");
             System.out.println("3. View a movie");

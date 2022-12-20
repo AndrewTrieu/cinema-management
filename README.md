@@ -31,3 +31,6 @@ The project uses the four principles of object-oriented programming (OOP):
 - The project uses the __The Movie Database (TMDB)__ API to fetch movie details and populate the `Movie` objects. The API key is stored in the `API_KEY` variable. To run the project, you must set this variable to your TMDB API key. You can get an API key by signing up for a free TMDB account.
 - JSON files are used to handle the data obtained using the API. Make sure to add the `json-xxx.jar` file to the project's classpath.
 - The `TmdbExample` class is used to test the TMDB API. It is not part of the project. It is included in the project only for testing purposes.
+
+## Future plans
+- Add a GUI

@@ -1,3 +1,5 @@
+package src;
+
 public class Venue {
     // attributes
     protected String name;

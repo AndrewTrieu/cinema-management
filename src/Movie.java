@@ -1,21 +1,31 @@
 package src;
 
+import java.util.ArrayList;
+
 // Movie class
 public class Movie {
     // attributes
     private String title;
-    private String releaseYear;
     private String director;
     private int duration;
-    private String genre;
+    private String releaseTime;
+    private String review;
+    private ArrayList<String> genre;
+    private float rating;
+    private int numRatings;
 
     // constructor
-    public Movie(String title, String releaseYear, String director, int duration, String genre) {
+    public Movie(String title, String director, int duration, String releaseTime, String review,
+            ArrayList<String> genre, float rating,
+            int numRatings) {
         this.title = title;
-        this.releaseYear = releaseYear;
         this.director = director;
         this.duration = duration;
+        this.releaseTime = releaseTime;
+        this.review = review;
         this.genre = genre;
+        this.rating = rating;
+        this.numRatings = numRatings;
     }
 
     // getters and setters
@@ -23,39 +33,31 @@ public class Movie {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public String getReleaseTime() {
+        return releaseTime;
     }
 
-    public String getReleaseYear() {
-        return releaseYear;
-    }
-
-    public void setReleaseYear(String releaseYear) {
-        this.releaseYear = releaseYear;
+    public String getReview() {
+        return review;
     }
 
     public String getDirector() {
         return director;
     }
 
-    public void setDirector(String director) {
-        this.director = director;
-    }
-
     public int getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-
-    public String getGenre() {
+    public ArrayList<String> getGenre() {
         return genre;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public float getRating() {
+        return rating;
+    }
+
+    public int getNumRatings() {
+        return numRatings;
     }
 }

@@ -34,13 +34,17 @@ public class Theater extends Venue {
 
     public void viewMovie(Movie movie) {
         System.out.println("Title: " + movie.getTitle());
-        System.out.println("Release Year: " + movie.getReleaseYear());
         System.out.println("Director: " + movie.getDirector());
-        System.out.println("Duration: " + movie.getDuration());
+        System.out.println("Release Year: " + movie.getReleaseTime());
+        System.out.println("Review: " + movie.getReview());
         System.out.println("Genre: " + movie.getGenre());
+        System.out.println("Duration: " + movie.getDuration());
+        System.out.println("Rating: " + movie.getRating());
+        System.out.println("Number of Ratings: " + movie.getNumRatings());
     }
 
     public void viewAllMovies() {
+        System.out.println();
         for (Movie movie : movies) {
             viewMovie(movie);
             System.out.println();
@@ -63,6 +67,7 @@ public class Theater extends Venue {
     }
 
     public void viewAllShowtimes() {
+        System.out.println();
         for (Showtime showtime : showtimes) {
             viewShowtime(showtime);
             System.out.println();

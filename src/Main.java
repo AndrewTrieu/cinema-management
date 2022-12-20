@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
+import java.util.HashMap;
+import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,7 +15,7 @@ import org.json.JSONObject;
 // Main class
 public class Main {
     // attributes
-    private static final String API_KEY = "YOUR_API_KEY";
+    private static final String API_KEY = "1958c3873a1d102fde2cab155cda98bc";
     private static Theater theater;
     static Scanner scanner = new Scanner(System.in);
 
@@ -79,22 +81,65 @@ public class Main {
         }
     }
 
+    public static HashMap<Integer, String> getGenres() {
+        HashMap<Integer, String> genres = new HashMap<Integer, String>();
+        try {
+            // Fetch the genres from the API
+            String listGenres = "https://api.themoviedb.org/3/genre/movie/list?api_key=" + API_KEY;
+            URL obj = new URL(listGenres);
+            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+            con.setRequestMethod("GET");
+            con.setRequestProperty("Accept", "application/json");
+            con.setRequestProperty("Content-Type", "application/json");
+            con.connect();
+            int responseCode = con.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) { // success
+                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
+                // parse the JSON response
+                JSONObject jsonObject = new JSONObject(response.toString());
+                JSONArray jsonArray = jsonObject.getJSONArray("genres");
+                if (jsonArray.length() > 0) {
+                    // add the genres to the HashMap
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject movie = jsonArray.getJSONObject(i);
+                        genres.put(movie.getInt("id"), movie.getString("name"));
+                    }
+                }
+            } else {
+                System.out.println("Failed to fetch genres from the API!");
+            }
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+        return genres;
+    }
+
     // add a movie
     public static void addMovie() {
+        // Enter the title to search for a movie
+        // The director and duration are not available in the API
         System.out.print("Enter the movie title: ");
         String title = scanner.nextLine();
-        System.out.print("Enter the release year: ");
-        String releaseYear = scanner.nextLine();
         System.out.print("Enter the director: ");
         String director = scanner.nextLine();
         System.out.print("Enter the duration: ");
         int duration = scanner.nextInt();
-        scanner.nextLine();
-        System.out.print("Enter the genre: ");
-        String genre = scanner.nextLine();
+        String releaseTime = "";
+        String review = "";
+        ArrayList<String> genre = new ArrayList<String>();
+        float rating = 0;
+        int numReviews = 0;
 
         // use The Movie Database API to fetch movie details
         try {
+            // Fetch the genres from the API
+            HashMap<Integer, String> genres = getGenres();
             // construct the API URL
             String temp = title.replaceAll(" ", "+");
             String url = "https://api.themoviedb.org/3/search/movie?api_key=" + API_KEY + "&query="
@@ -122,13 +167,14 @@ public class Main {
                     JSONObject movie = jsonArray.getJSONObject(0);
                     // update the movie details with the API response
                     title = movie.getString("title");
-                    releaseYear = movie.getString("release_date");
-                    /*
-                     * The Movie Database API does not provide these details
-                     * director = movie.getString("director");
-                     * duration = movie.getInt("runtime");
-                     * genre = movie.getString("genre");
-                     */
+                    releaseTime = movie.getString("release_date");
+                    rating = movie.getFloat("vote_average");
+                    numReviews = movie.getInt("vote_count");
+                    review = movie.getString("overview");
+                    JSONArray genreIds = movie.getJSONArray("genre_ids");
+                    for (int i = 0; i < genreIds.length(); i++) {
+                        genre.add(genres.get(genreIds.getInt(i)));
+                    }
                 }
             } else {
                 System.out.println("Failed to fetch movie details from the API!");
@@ -138,7 +184,8 @@ public class Main {
             e.printStackTrace();
         }
         // create a movie object and add it to the theater's catalog
-        Movie movie = new Movie(title, releaseYear, director, duration, genre);
+        Movie movie = new Movie(title, director, duration, releaseTime, review, genre, rating,
+                numReviews);
         theater.addMovie(movie);
         System.out.println("Movie added successfully!");
     }
